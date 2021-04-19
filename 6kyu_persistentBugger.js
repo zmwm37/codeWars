@@ -1,27 +1,26 @@
 // Persistent Bugger
 
-function persistence(num) {
-   //code me
-  var z = 1;
-  var n = num;
-  var p = 1;
-  // parse number into digits and multiply, length >1?
-  while(n.toString().length > 1) {
+function persistence(num, count) {
+  // test if positive and less than 10
+  if(num < 10 && num >= 0){
+    return 0;
+  }
+  count = count || 1
 
-    var sNum = num.toString();
-    for (var i = 0; i < sNum.length; i++) {
-      p *= sNum[i];
-    }
-    
-    n = p
-    
-    // add to counter
-    if(n.toString().length > 1) {
-      z++
-    }
-    
+  // if p is undefined, set n as num. else set n as p
+  if(typeof(p) == 'undefined'){
+    var n = num;
+  } else {
+    var n = p;
   }
 
-  // return counter
-  return z;
+  var p = 1;
+  // parse number into digits and multiply, length >1?
+  var sNum = num.toString();
+  for (var i = 0; i < sNum.length; i++) {
+    p *= sNum[i];
+  }
+
+  // recursively iterate until p is one digit
+  return p.toString().length > 1 ? persistence(p, count + 1) : count;
 }
